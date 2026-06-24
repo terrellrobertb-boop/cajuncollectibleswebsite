@@ -8,7 +8,6 @@ export const site = {
   // TODO: Replace placeholders once channels/handles are live
   social: {
     youtube: "https://www.youtube.com/@cajuncollectibles",
-    instagram: "#",
     whatnot: "https://www.whatnot.com/user/cajunprez/shop",
     email: "hello@cajuncollectibles.com",
   },

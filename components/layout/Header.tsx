@@ -8,14 +8,13 @@ import { Mail, Menu, X } from "lucide-react";
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/Container";
 import { WhatnotIcon } from "@/components/brand/WhatnotIcon";
-import { YoutubeIcon, InstagramIcon } from "@/components/brand/SocialIcons";
+import { YoutubeIcon } from "@/components/brand/SocialIcons";
 import { cn } from "@/lib/utils";
 
 const socials = [
   { name: "YouTube", href: site.social.youtube, Icon: YoutubeIcon },
-  { name: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
   { name: "Whatnot", href: site.social.whatnot, Icon: WhatnotIcon },
-  { name: "Email", href: `mailto:${site.social.email}`, Icon: Mail },
+  { name: "Contact", href: "/contact", Icon: Mail },
 ] as const;
 
 export function Header({ logo }: { logo: ReactNode }) {

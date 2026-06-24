@@ -3,7 +3,7 @@ import { Mail, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { WhatnotIcon } from "@/components/brand/WhatnotIcon";
-import { YoutubeIcon, InstagramIcon } from "@/components/brand/SocialIcons";
+import { YoutubeIcon } from "@/components/brand/SocialIcons";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
 
 const socials = [
   { name: "YouTube", href: site.social.youtube, Icon: YoutubeIcon },
-  { name: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
   { name: "Whatnot", href: site.social.whatnot, Icon: WhatnotIcon },
 ];
 
@@ -67,12 +66,7 @@ export default function ContactPage() {
                       <p className="text-xs uppercase tracking-wider text-cream/70">
                         Email
                       </p>
-                      <a
-                        href={`mailto:${site.social.email}`}
-                        className="text-cream hover:text-gold transition-colors break-all"
-                      >
-                        {site.social.email}
-                      </a>
+                      <p className="text-cream break-all">{site.social.email}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
