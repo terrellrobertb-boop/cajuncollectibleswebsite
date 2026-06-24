@@ -6,12 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "assets:status": "tsx scripts/assets-status.ts",
+    "screenshots": "tsx scripts/screenshot.mjs",
+    "verify:wordmark": "node scripts/verify-wordmark.mjs",
+    "trim:wordmark": "node scripts/trim-asset.mjs public/brand/logo-wordmark.png",
+    "favicon": "node scripts/generate-favicon.mjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.21.0",
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.80.0",
+    "resend": "^6.14.0",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,7 +33,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "playwright": "^1.61.0",
     "tailwindcss": "^4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }
