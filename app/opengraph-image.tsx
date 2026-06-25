@@ -44,7 +44,7 @@ export default function OpenGraphImage() {
         >
           <span>Where the past</span>
           <span style={{ color: "#E0B341" }}>comes alive,</span>
-          <span>one item at a time.</span>
+          <span>one memory at a time.</span>
         </div>
         <div
           style={{
