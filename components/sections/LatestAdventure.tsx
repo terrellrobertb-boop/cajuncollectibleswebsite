@@ -3,6 +3,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ChannelStatusBadge } from "@/components/ui/ChannelStatusBadge";
 import { upcomingChannel } from "@/content/upcoming-channel";
+import { isPreLaunchStatus } from "@/lib/channel-status";
 
 export function LatestAdventure() {
   return (
@@ -23,7 +24,7 @@ export function LatestAdventure() {
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {upcomingChannel.map((item) => (
+          {upcomingChannel.filter((item) => isPreLaunchStatus(item.status)).map((item) => (
             <article
               key={item.slug}
               data-teaser-card

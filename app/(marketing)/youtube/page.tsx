@@ -5,6 +5,7 @@ import { BrandImage } from "@/components/brand/BrandImage";
 import { CypressBackground } from "@/components/brand/CypressBackground";
 import { YoutubeIcon } from "@/components/brand/SocialIcons";
 import { LatestContent } from "@/components/sections/LatestContent";
+import { LatestVideoHighlight } from "@/components/sections/LatestVideoHighlight";
 import { YouTubePillarSections } from "@/components/sections/YouTubePillarSections";
 import { site } from "@/content/site";
 
@@ -62,6 +63,8 @@ export default function YouTubePage() {
         </Container>
         <div aria-hidden="true" className="absolute inset-x-0 bottom-[-1px] h-12 sm:h-16 bg-cream torn-paper-top" />
       </section>
+
+      <LatestVideoHighlight />
 
       <section className="bg-cream py-16">
         <Container>

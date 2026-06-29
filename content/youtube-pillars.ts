@@ -6,6 +6,8 @@ export type YouTubeFeaturedVideo = {
   asset?: AssetKey;
   /** Key into content/upcoming-channel.ts for shared production status. */
   upcomingSlug?: string;
+  /** When set, the card links to YouTube and shows as Live. */
+  youtubeUrl?: string;
 };
 
 export type YouTubePillar = {
@@ -24,6 +26,10 @@ export const youtubePillars: YouTubePillar[] = [
     description:
       "Collection purchases, flea markets, garage sales, card shops, conventions, antique stores, and hidden treasures waiting to be discovered.",
     videos: [
+      {
+        slug: "first-downtown-pull",
+        title: "I Pulled My First Downtown",
+      },
       {
         slug: "whats-inside-ebay-collections",
         title: "What's Inside eBay Collections?",

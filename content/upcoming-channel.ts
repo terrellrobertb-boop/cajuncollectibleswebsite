@@ -1,4 +1,4 @@
-export type ChannelStatus = "In Progress" | "Recording" | "Coming Soon";
+export type ChannelStatus = "Live" | "In Progress" | "Recording" | "Coming Soon";
 
 export type UpcomingChannelItem = {
   slug: string;

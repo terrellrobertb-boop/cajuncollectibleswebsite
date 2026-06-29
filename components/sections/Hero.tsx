@@ -7,6 +7,7 @@ import { CypressBackground } from "@/components/brand/CypressBackground";
 import { TornPaperDivider } from "@/components/brand/TornPaperDivider";
 import { resolveAsset } from "@/lib/assets-server";
 import { site } from "@/content/site";
+import { isLatestVideoPublished, latestVideo } from "@/content/latest-video";
 
 export function Hero() {
   // Resolve the wordmark from the asset registry so we automatically use
@@ -97,12 +98,16 @@ export function Hero() {
             {/* 4. CTA buttons — stack vertically on phones, side-by-side from sm:+ */}
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button
-                href={site.social.youtube}
+                href={
+                  isLatestVideoPublished() && latestVideo
+                    ? latestVideo.youtubeUrl
+                    : site.social.youtube
+                }
                 variant="primary"
                 size="lg"
               >
                 <Play className="h-5 w-5 fill-current" />
-                Watch on YouTube
+                {isLatestVideoPublished() ? "Watch Latest Video" : "Watch on YouTube"}
               </Button>
               <Button
                 href="/adventure"

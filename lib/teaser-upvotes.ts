@@ -1,4 +1,8 @@
-const PRE_LAUNCH_STATUSES = ["In Progress", "Recording", "Coming Soon"] as const;
+import {
+  upcomingChannel,
+  type ChannelStatus,
+} from "@/content/upcoming-channel";
+import { isPreLaunchStatus as isPreLaunchChannelStatus } from "@/lib/channel-status";
 const STORAGE_COUNTS_KEY = "cajun-teaser-vote-counts";
 const STORAGE_VOTED_KEY = "cajun-teaser-voted";
 
@@ -43,8 +47,7 @@ function writeVoted(voted: Set<string>): void {
 }
 
 function isPreLaunchStatus(status: string): boolean {
-  if (status === "Live") return false;
-  return PRE_LAUNCH_STATUSES.includes(status as (typeof PRE_LAUNCH_STATUSES)[number]);
+  return isPreLaunchChannelStatus(status as ChannelStatus);
 }
 
 function updateButtonState(

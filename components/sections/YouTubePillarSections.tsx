@@ -1,12 +1,14 @@
 import Image from "next/image";
+import { Play } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ChannelStatusBadge } from "@/components/ui/ChannelStatusBadge";
+import { getYoutubePillarsWithLive } from "@/lib/youtube-content";
 import {
-  youtubePillars,
-  type YouTubeFeaturedVideo,
-  type YouTubePillar,
-} from "@/content/youtube-pillars";
+  extractYouTubeVideoId,
+  youTubeThumbnailUrl,
+} from "@/lib/youtube";
 import { resolveAsset } from "@/lib/assets-server";
+import type { YouTubeFeaturedVideo, YouTubePillar } from "@/content/youtube-pillars";
 
 function FeaturedVideoCard({
   video,
@@ -15,18 +17,31 @@ function FeaturedVideoCard({
   video: YouTubeFeaturedVideo;
   pillarTitle: YouTubePillar["title"];
 }) {
-  const thumb = video.asset ? resolveAsset(video.asset) : null;
+  const isLive = Boolean(video.youtubeUrl);
+  const videoId = video.youtubeUrl
+    ? extractYouTubeVideoId(video.youtubeUrl)
+    : null;
+  const youTubeThumb = videoId ? youTubeThumbnailUrl(videoId, "hq") : null;
+  const assetThumb = video.asset ? resolveAsset(video.asset) : null;
 
-  return (
-    <div
-      data-teaser-card
-      data-teaser-theme="dark"
-      className="group relative aspect-video rounded-xl overflow-hidden bg-bayou-deep ring-1 ring-charcoal/10 transition-all duration-200 hover:-translate-y-1 hover:ring-gold"
-    >
-      {thumb?.isFinal ? (
+  const cardClassName =
+    "group relative aspect-video rounded-xl overflow-hidden bg-bayou-deep ring-1 ring-charcoal/10 transition-all duration-200 hover:-translate-y-1 hover:ring-gold";
+
+  const inner = (
+    <>
+      {isLive && youTubeThumb ? (
         <Image
-          src={thumb.resolvedSrc}
-          alt={thumb.alt}
+          src={youTubeThumb}
+          alt={video.title}
+          fill
+          unoptimized
+          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : assetThumb?.isFinal ? (
+        <Image
+          src={assetThumb.resolvedSrc}
+          alt={assetThumb.alt}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -45,9 +60,20 @@ function FeaturedVideoCard({
       )}
 
       <div className="absolute top-4 left-4 z-10 flex flex-col items-start gap-2">
-        <ChannelStatusBadge upcomingSlug={video.upcomingSlug} />
-        <div data-teaser-vote-slot />
+        <ChannelStatusBadge
+          status={isLive ? "Live" : undefined}
+          upcomingSlug={isLive ? undefined : video.upcomingSlug}
+        />
+        {!isLive ? <div data-teaser-vote-slot /> : null}
       </div>
+
+      {isLive ? (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange text-cream transition-transform group-hover:scale-110">
+            <Play className="h-5 w-5 fill-current ml-0.5" />
+          </div>
+        </div>
+      ) : null}
 
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent p-5 flex flex-col justify-end">
         <span className="text-cream/70 text-xs uppercase tracking-widest">
@@ -57,6 +83,28 @@ function FeaturedVideoCard({
           {video.title}
         </h3>
       </div>
+    </>
+  );
+
+  if (isLive && video.youtubeUrl) {
+    return (
+      <a
+        href={video.youtubeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-teaser-card
+        data-teaser-theme="dark"
+        data-channel-status="Live"
+        className={cardClassName}
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <div data-teaser-card data-teaser-theme="dark" className={cardClassName}>
+      {inner}
     </div>
   );
 }
@@ -86,11 +134,13 @@ function PillarBlock({ pillar }: { pillar: YouTubePillar }) {
 }
 
 export function YouTubePillarSections() {
+  const pillars = getYoutubePillarsWithLive();
+
   return (
     <section className="bg-cream pb-20 sm:pb-24">
       <Container>
         <div className="space-y-16 sm:space-y-20">
-          {youtubePillars.map((pillar) => (
+          {pillars.map((pillar) => (
             <PillarBlock key={pillar.slug} pillar={pillar} />
           ))}
         </div>

@@ -12,11 +12,17 @@ export function getChannelStatus(upcomingSlug?: string): ChannelStatus {
   return item?.status ?? "Coming Soon";
 }
 
+export function isPreLaunchStatus(status: ChannelStatus): boolean {
+  return status !== "Live";
+}
+
 export function channelStatusBadgeClass(status: ChannelStatus) {
   const base =
     "inline-block rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider backdrop-blur-sm";
 
   switch (status) {
+    case "Live":
+      return cn(base, "bg-orange-bright/90 text-cream ring-1 ring-orange-bright/80");
     case "In Progress":
       return cn(base, "bg-gold/35 text-charcoal ring-1 ring-gold/40");
     case "Recording":
